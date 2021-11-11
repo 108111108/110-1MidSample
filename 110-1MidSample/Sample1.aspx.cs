@@ -8,7 +8,13 @@ using System.Web.UI.WebControls;
 namespace _110_1MidSample {
     public partial class Sample1 : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
-            
+            if (IsPostBack == false)
+            {
+                string s_Ver = mt_GenVeriStr();
+                mt_ImgPointer(ref Image1, s_Ver);
+                hd_Num.Value = mt_2MD5(s_Ver);
+            }
+
         }
 
         // To generate a 4 digital number
@@ -56,7 +62,8 @@ namespace _110_1MidSample {
         }
 
         // To convert a plain-text string into a md5 string
-        public string mt_2MD5(string s_Str) {
+        public string mt_2MD5(string s_Str)
+        {
             System.Security.Cryptography.MD5 cryptoMD5 = System.Security.Cryptography.MD5.Create();
             byte[] ba_Bytes = System.Text.Encoding.UTF8.GetBytes(s_Str);
             byte[] ba_Hash = cryptoMD5.ComputeHash(ba_Bytes);
@@ -66,5 +73,8 @@ namespace _110_1MidSample {
                 .ToUpper();
             return s_Md5;
         }
+            protected void btn_Submit_Click(object sender, EventArgs e)
+            {
+            }
     }
 }
